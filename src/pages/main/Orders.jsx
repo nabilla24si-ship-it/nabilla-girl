@@ -1,4 +1,4 @@
-import PageHeader from "../components/PageHeader";
+import PageHeader from "../../components/PageHeader"; // Gunakan ../../ karena file ada di dalam folder main
 
 export default function Orders() {
   const ordersData = Array.from({ length: 30 }).map((_, i) => ({
