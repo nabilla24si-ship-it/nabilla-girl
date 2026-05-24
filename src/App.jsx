@@ -14,40 +14,43 @@ import Forgot from "./pages/auth/Forgot";
 import Dashboard from "./pages/main/Dashboard";
 import Appointments from "./pages/main/Orders"; 
 import Patients from "./pages/main/Customers";  
-import Products from "./pages/main/Products"; // Halaman List Produk
+import Products from "./pages/main/Products"; 
+import Components from "./pages/main/Components"; // ◄ Pastikan huruf "C" di file ini kapital!
 import NotFound from "./pages/main/NotFound";
 
-// 1️⃣ Import ProductDetail sesuai modul (di folder pages) menggunakan lazy load
 const ProductDetail = React.lazy(() => import("./pages/ProductDetail"));
 
 export default function App() {
   return (
-    <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+    <Suspense fallback={<div className="p-10 text-center text-rose-500 font-semibold">Loading...</div>}>
       <Routes>
-        {/* Route Auth */}
+        {/* ================= ROUTE AUTH ================= */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Forgot />} />
         </Route>
 
-        {/* Route Admin */}
+        {/* ================= ROUTE ADMIN / MAIN ================= */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/patients" element={<Patients />} />
           <Route path="/products" element={<Products />} />
           
-          {/* 2️⃣ Route untuk Detail Produk */}
+          {/* Jalur Khusus Katalog Komponen Praktikum */}
+          <Route path="/components" element={<Components />} /> 
+          
+          {/* Route Detail Produk */}
           <Route path="/products/:id" element={<ProductDetail />} />
           
-          {/* Error Pages */}
+          {/* Error Pages Testing */}
           <Route path="/error-400" element={<NotFound code="400" message="Bad Request." />} />
           <Route path="/error-401" element={<NotFound code="401" message="Unauthorized." />} />
           <Route path="/error-403" element={<NotFound code="403" message="Forbidden." />} />
         </Route>
 
-        {/* Catch-all 404 */}
+        {/* ================= CATCH-ALL GLOBAL 404 ================= */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
