@@ -1,4 +1,4 @@
-import { FaThLarge, FaCalendarAlt, FaUsers, FaBoxOpen, FaCogs } from "react-icons/fa"; // 1. Tambah icon FaCogs
+import { FaThLarge, FaCalendarAlt, FaUsers, FaBoxOpen, FaCogs } from "react-icons/fa"; 
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
@@ -22,8 +22,8 @@ export default function Sidebar() {
 
         <nav className="flex-1">
           <ul className="space-y-2 list-none p-0">
-            {/* Menu Utama */}
-            <li className="text-[10px] text-gray-400 uppercase font-bold px-4 mb-2">Main Menu</li>
+            {/* ==================== SECTION 1: MAIN MENU ==================== */}
+            <li className="text-[10px] text-gray-400 uppercase font-bold px-4 mb-2 tracking-wider">Main Menu</li>
             
             <li>
               <NavLink to="/" className={menuClass}>
@@ -54,15 +54,17 @@ export default function Sidebar() {
               </NavLink>
             </li>
 
-            {/* 2. MENU DOKUMENTASI KOMPONENT PRAKTIKUM BARU */}
+            {/* ==================== SECTION 2: NEW PRAKTIKUM UI ==================== */}
+            <li className="mt-8 text-[10px] text-gray-400 uppercase font-bold px-4 mb-2 tracking-wider">Modul Praktikum</li>
+            
             <li>
               <NavLink to="/components" className={menuClass}>
                 <FaCogs className="text-lg" /> <span>Katalog Komponen</span>
               </NavLink>
             </li>
 
-            {/* Test Errors Section */}
-            <li className="mt-10 text-[10px] text-gray-400 uppercase font-bold px-4">Test Errors</li>
+            {/* ==================== SECTION 3: TEST ERRORS ==================== */}
+            <li className="mt-8 text-[10px] text-gray-400 uppercase font-bold px-4 tracking-wider">Test Errors</li>
             <li><NavLink to="/error-400" className={menuClass}>Error 400</NavLink></li>
             <li><NavLink to="/error-401" className={menuClass}>Error 401</NavLink></li>
             <li><NavLink to="/error-403" className={menuClass}>Error 403</NavLink></li>
@@ -70,7 +72,7 @@ export default function Sidebar() {
         </nav>
       </div>
       
-      <div className="text-xs text-gray-400 text-center">
+      <div className="text-xs text-gray-400 text-center pt-4 border-t border-gray-50">
         © 2026 Nabilla Suharman
       </div>
     </div>

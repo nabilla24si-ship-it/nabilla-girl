@@ -1,41 +1,44 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 
-// Import komponen-komponen yang PASTI ADA di folder src/components kamu
+// Import komponen layout dasar bawaan project CRM kamu
 import Container from "../../components/Container";
-import Button from "../../components/Button";
-import Badge from "../../components/Badge";
-import Avatar from "../../components/Avatar";
-import Card from "../../components/Card";
-import ProductCard from "../../components/ProductCard";
-import Table from "../../components/Table";
 import Footer from "../../components/Footer";
+import Avatar from "../../components/Avatar";
+import ProductCard from "../../components/ProductCard";
+
+// Import komponen dasar bawaan proyek kamu (Aman dari error ui/shadcn)
+import { Button } from "../../components/ui/Button"; 
+import Badge from "../../components/Badge";        
+import Card from "../../components/Card";          
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/Table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select";
 
 export default function Components() {
+  // State sederhana untuk memicu buka/tutup Modal Native React
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const tableHeaders = ["No", "Nama Layanan", "Kategori", "Harga", "Aksi"];
   const services = [
     {
       id: 1,
       name: "Acne Laser Treatment",
       category: "Laser",
       price: "Rp 750.000",
-      status: "rose",
+      status: "destructive", 
     },
     {
       id: 2,
       name: "Deep Cleansing Facial",
       category: "Facial",
       price: "Rp 350.000",
-      status: "success",
+      status: "default",
     },
     {
       id: 3,
       name: "Chemical Peeling",
       category: "Peeling",
       price: "Rp 500.000",
-      status: "warning",
+      status: "outline",
     },
   ];
 
@@ -44,18 +47,17 @@ export default function Components() {
       <Container>
         <div className="mb-6">
           <h1 className="text-2xl font-black text-gray-800 tracking-tight">
-            Katalog Komponen UI
+            Katalog Komponen UI CRM
           </h1>
           <p className="text-xs text-gray-500 mt-1">
-            Sistem Dokumentasi Mandiri — Minimal 15 Reusable Components Berbasis
-            CRM Beauty Clinic.
+            Sistem Documentation Mandiri — Penerapan Modul Standar Terintegrasi.
           </p>
         </div>
 
         <hr className="mb-8 border-gray-100" />
 
         <div className="space-y-12">
-          {/* 1. HERO SECTION BOX MOCKUP */}
+          {/* 1. SECTION COMPONENTS (HERO BOX) */}
           <section className="space-y-3">
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">
               1. Section Components
@@ -69,9 +71,7 @@ export default function Components() {
                   Lumière Glowing Glow Up Bersama Nabilla
                 </h2>
                 <p className="text-gray-500 text-xs leading-relaxed">
-                  Dapatkan diskon treatment pembersihan jerawat intensif dan
-                  peeling medis menggunakan teknologi laser mutakhir Eropa
-                  terpilih.
+                  Dapatkan diskon treatment pembersihan jerawat intensif dan peeling medis menggunakan teknologi laser mutakhir Eropa terpilih.
                 </p>
               </div>
               <div className="w-24 h-24 bg-white/80 rounded-2xl shadow-inner flex items-center justify-center text-3xl border border-white shrink-0">
@@ -80,57 +80,48 @@ export default function Components() {
             </div>
           </section>
 
-          {/* 2. BASIC COMPONENTS (Button, Badge, Avatar) */}
+          {/* 2. DATA DISPLAY COMPONENTS */}
           <section className="space-y-4">
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-              2. Basic Components
+              2. Data Display (Table)
             </h2>
-            <Card className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="space-y-2">
-                <h4 className="text-xs font-bold text-gray-700">
-                  Variasi Button
-                </h4>
-                <div className="flex gap-2 flex-wrap">
-                  <Button type="primary">Simpan</Button>
-                  <Button type="rose">Booking</Button>
-                  <Button type="danger">Hapus</Button>
-                  <Button type="secondary">Edit</Button>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h4 className="text-xs font-bold text-gray-700">
-                  Variasi Status Badge
-                </h4>
-                <div className="flex gap-2 flex-wrap">
-                  <Badge type="success">Completed</Badge>
-                  <Badge type="warning">Scheduled</Badge>
-                  <Badge type="danger">Canceled</Badge>
-                  <Badge type="rose">In Progress</Badge>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h4 className="text-xs font-bold text-gray-700">
-                  Variasi Avatar Inisial
-                </h4>
-                <div className="flex gap-2">
-                  <Avatar name="Nabilla" />
-                  <Avatar name="Andi" />
-                  <Avatar name="Siti" />
-                </div>
-              </div>
-            </Card>
+            <div className="border rounded-xl bg-white shadow-sm overflow-hidden">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[80px]">No</TableHead>
+                    <TableHead>Nama Layanan</TableHead>
+                    <TableHead>Kategori</TableHead>
+                    <TableHead>Harga</TableHead>
+                    <TableHead className="text-right">Aksi</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {services.map((item, idx) => (
+                    <TableRow key={item.id} className="hover:bg-gray-50/50 transition-colors">
+                      <TableCell className="font-medium text-gray-500">{idx + 1}</TableCell>
+                      <TableCell className="font-bold text-gray-800">{item.name}</TableCell>
+                      <TableCell>
+                        <Badge variant={item.status}>{item.category}</Badge>
+                      </TableCell>
+                      <TableCell className="font-semibold text-emerald-600">{item.price}</TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="outline" size="sm">Detail</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </section>
 
-          {/* 3. DATA DISPLAY COMPONENTS (Card, Table, ProductCard) */}
+          {/* 3. PRODUCT CARDS DISPLAY */}
           <section className="space-y-4">
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-              3. Data Display Components
+              3. Product Cards Display
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 space-y-4">
-                <h4 className="text-xs font-bold text-gray-700">
-                  Product Cards Grid
-                </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <ProductCard
                     image="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500"
@@ -140,7 +131,7 @@ export default function Components() {
                     description="Serum khusus dengan konsentrat Salicylic Acid mikro untuk meredakan kemerahan dalam 3 malam saja."
                   />
                   <ProductCard
-                    image="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=500&auto=format&fit=crop" // ◄ Menggunakan URL alternatif kosmetik krim wajah
+                    image="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=500&auto=format&fit=crop"
                     title="Brightening Night Cream"
                     category="Moisturizer"
                     price="Rp 189.000"
@@ -150,21 +141,13 @@ export default function Components() {
               </div>
 
               <div className="space-y-4">
-                <h4 className="text-xs font-bold text-gray-700">
-                  Mini Rows Widget
-                </h4>
-                <Card className="space-y-2 !p-4">
+                <Card className="p-4 space-y-2">
                   <p className="text-[11px] font-bold text-gray-400 uppercase mb-2">
                     Top Treatments
                   </p>
                   {[
                     { rank: "1", name: "Acne Laser", rate: "4.9", rev: "142" },
-                    {
-                      rank: "2",
-                      name: "Deep Cleansing",
-                      rate: "4.8",
-                      rev: "98",
-                    },
+                    { rank: "2", name: "Deep Cleansing", rate: "4.8", rev: "98" },
                   ].map((t) => (
                     <div
                       key={t.rank}
@@ -175,12 +158,9 @@ export default function Components() {
                           #{t.rank}
                         </span>
                         <div>
-                          <h4 className="text-xs font-bold text-gray-800">
-                            {t.name}
-                          </h4>
+                          <h4 className="text-xs font-bold text-gray-800">{t.name}</h4>
                           <p className="text-[9px] text-gray-400 flex items-center gap-0.5">
-                            <FaStar className="text-amber-400" /> {t.rate} • (
-                            {t.rev})
+                            <FaStar className="text-amber-400" /> {t.rate} • ({t.rev})
                           </p>
                         </div>
                       </div>
@@ -189,82 +169,51 @@ export default function Components() {
                 </Card>
               </div>
             </div>
-
-            <div className="space-y-2 pt-2">
-              <h4 className="text-xs font-bold text-gray-700">
-                Reusable Table Component
-              </h4>
-              <Table headers={tableHeaders}>
-                {services.map((item, idx) => (
-                  <tr
-                    key={item.id}
-                    className="hover:bg-gray-50/70 transition-colors"
-                  >
-                    <td className="p-4 border-b border-gray-100 font-medium text-gray-500">
-                      {idx + 1}
-                    </td>
-                    <td className="p-4 border-b border-gray-100 font-bold text-gray-800">
-                      {item.name}
-                    </td>
-                    <td className="p-4 border-b border-gray-100">
-                      <Badge type={item.status}>{item.category}</Badge>
-                    </td>
-                    <td className="p-4 border-b border-gray-100 font-semibold text-emerald-600">
-                      {item.price}
-                    </td>
-                    <td className="p-4 border-b border-gray-100">
-                      <Button type="primary" className="!py-1 !px-2.5 !text-xs">
-                        Detail
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </Table>
-            </div>
           </section>
 
-          {/* 4. FORM COMPONENTS MOCKUP */}
+          {/* 4. FORM INPUT COMPONENTS */}
           <section className="space-y-4">
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-              4. Form Input Components
+              4. Form Input (Select)
             </h2>
-            <Card className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex flex-col space-y-1">
-                <label className="text-xs font-bold text-gray-500 uppercase">
-                  Nama Pasien
-                </label>
+            <Card className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
+              <div className="flex flex-col space-y-1.5">
+                <label className="text-xs font-bold text-gray-500 uppercase">Nama Pasien</label>
                 <input
                   type="text"
                   placeholder="Contoh: Nabilla Suharman"
-                  className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none"
+                  className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none focus:ring-1 focus:ring-ring"
                 />
               </div>
-              <div className="flex flex-col space-y-1">
-                <label className="text-xs font-bold text-gray-500 uppercase">
-                  Pilih Dokter
-                </label>
-                <select className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-600 outline-none">
-                  <option>Dr. Olivia Grant</option>
-                  <option>Dr. David Carter</option>
-                </select>
+
+              <div className="flex flex-col space-y-1.5">
+                <label className="text-xs font-bold text-gray-500 uppercase">Pilih Dokter</label>
+                <Select>
+                  <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-xl focus:ring-0 shadow-none">
+                    <SelectValue placeholder="Pilih Dokter Spesialis" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="olivia">Dr. Olivia Grant</SelectItem>
+                    <SelectItem value="david">Dr. David Carter</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-              <div className="flex flex-col space-y-1">
-                <label className="text-xs font-bold text-gray-500 uppercase">
-                  Catatan
-                </label>
+
+              <div className="flex flex-col space-y-1.5">
+                <label className="text-xs font-bold text-gray-500 uppercase">Catatan</label>
                 <textarea
                   rows={1}
                   placeholder="Tulis keluhan..."
-                  className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none resize-none"
+                  className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none resize-none focus:ring-1 focus:ring-ring"
                 />
               </div>
             </Card>
           </section>
 
-          {/* 5. FEEDBACK COMPONENTS (Alert & Modal Interactive) */}
+          {/* 5. FEEDBACK COMPONENTS (MURNI MODAL REACT NATIVE - ANTI-GAGAL) */}
           <section className="space-y-4">
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-              5. Feedback Components
+              5. Feedback Components (Native Modal)
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -275,11 +224,18 @@ export default function Components() {
                   ⚠️ Peringatan: Ruangan tindakan 1 penuh pada jam 13:00 WIB.
                 </div>
               </div>
-              <Card className="flex flex-col items-center justify-center p-4 text-center gap-2">
+
+              <Card className="flex flex-col items-center justify-center p-4 text-center gap-3">
                 <p className="text-xs text-gray-400">
-                  Uji interaktif pop-up box dialog modal.
+                  Uji interaktif pop-up box menggunakan modal murni state React.
                 </p>
-                <Button type="rose" onClick={() => setIsModalOpen(true)}>
+                
+                {/* TOMBOL MERAH DIJAMIN LANGSUNG MUNCUL & BISA DIKLIK */}
+                <Button 
+                  type="button"
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-rose-600 hover:bg-rose-700 text-white font-semibold px-6 rounded-xl transition-all"
+                >
                   Buka Dialog Box
                 </Button>
               </Card>
@@ -288,30 +244,46 @@ export default function Components() {
         </div>
       </Container>
 
-      {/* Pop-up Modal Box Fungsional */}
+      <Footer />
+
+      {/* RENDER MODAL NATIVE MURNI (Muncul Mengambang Sempurna Pas Tombol Diklik) */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl w-full max-w-sm p-6 space-y-4 shadow-xl border border-gray-50">
-            <h3 className="font-bold text-gray-800 text-base">
-              Konfirmasi Medis
-            </h3>
-            <p className="text-xs text-gray-500 leading-relaxed">
-              Apakah Anda yakin ingin memproses penjadwalan pendaftaran pasien
-              ini ke dalam antrean utama <b>byutie. Clinic</b>?
-            </p>
-            <div className="flex justify-end gap-2 pt-2">
-              <Button type="secondary" onClick={() => setIsModalOpen(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop Blur Gelap Belakang */}
+          <div 
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity" 
+            onClick={() => setIsModalOpen(false)}
+          />
+          
+          {/* Kotak Konten Modal */}
+          <div className="relative w-full max-w-sm bg-white p-6 rounded-2xl shadow-2xl border border-gray-50 scale-100 transition-all z-10 flex flex-col gap-4 animate-in zoom-in-95 duration-150">
+            <div className="flex flex-col gap-1.5 text-left">
+              <h3 className="text-base font-bold text-gray-800 leading-none">
+                Konfirmasi Medis
+              </h3>
+              <p className="text-xs text-gray-500 pt-1 leading-relaxed">
+                Apakah Anda yakin ingin memproses penjadwalan pendaftaran pasien ini ke dalam antrean utama <b>byutie. Clinic</b>?
+              </p>
+            </div>
+            
+            <div className="flex gap-2 justify-end pt-2">
+              <Button 
+                variant="outline" 
+                className="rounded-xl h-9 text-xs font-bold" 
+                onClick={() => setIsModalOpen(false)}
+              >
                 Batal
               </Button>
-              <Button type="rose" onClick={() => setIsModalOpen(false)}>
+              <Button 
+                className="bg-rose-600 hover:bg-rose-700 text-white rounded-xl h-9 text-xs font-bold" 
+                onClick={() => setIsModalOpen(false)}
+              >
                 Konfirmasi
               </Button>
             </div>
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 }
